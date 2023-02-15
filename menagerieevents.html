@@ -1,0 +1,306 @@
+<!doctype html>
+
+<head>
+<style>
+body {
+	font-family: 'Arial';
+	color: #332a1a; /*15%*/
+	background-image: url("https://cdn.discordapp.com/attachments/518641504315637770/1071963079451091024/menagerie.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+#container {
+	margin: auto;
+	margin-top: 6vh;
+	width: 1200px;
+	height: 89vh;
+	background-color: #e5dccd; /*85%*/
+}
+
+#ratings {
+	text-align: center;
+	font-size: 20px;
+	width: 1200px;
+	float: left;
+}
+
+#results {
+	width: 399px;
+	height: 89vh;
+	font-size: 16px;
+	font-weight: bold;
+	float: left;
+	border-image: linear-gradient(#e5dccd, #332a1a, #e5dccd) 1;  /*85%, 15%, 85%*/
+	border-left: 1px solid;
+}
+
+#cardimage {
+	height: 600px;
+	margin-bottom: 20px;
+}
+
+label {
+	margin: 8px;
+	font-weight: bold;
+	display: inline-block;
+}
+
+#ratingradio:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+input {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+
+	border-radius: 50%;
+	width: 20px;
+	height: 20px;
+	border: 2px solid #c2ad89; /*65%*/
+	background-color: #f6f3ee; /*95%*/
+}
+
+input:hover {
+	border-color: #54452c; /*25%*/
+	background-color: #c2ad89; /*65%*/
+}
+
+input:checked {
+	border: 7px solid #54452c; /*25%*/
+}
+
+button {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	
+	margin-top: 20px;
+	
+	font-size: 20px;
+	color: #332a1a; /*15%*/
+	font-weight: bold;
+	border: 2px solid #c2ad89; /*65%*/
+	background-color: #f6f3ee; /*95%*/
+}
+
+button:hover {
+	border-color: #54452c; /*25%*/
+	background-color: #c2ad89; /*65%*/
+}
+
+#results>h3 {
+	text-align: center;
+	text-decoration: underline;
+	margin-bottom: 0;
+}
+
+#resultslist>div {
+	padding: 12px 0 0 40px;
+}
+
+#resultslist>div:nth-child(n+2) {
+	border-image: linear-gradient(90deg, #e5dccd, #332a1a, #e5dccd) 1;  /*85%, 15%, 85%*/
+	border-top: 1px solid;
+}
+
+#resultslist>div>* {
+	float: left;
+}
+
+#resultslist>div>div {
+	width: 30px;
+	text-align: right;
+}
+
+#resultslist>div:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+#resultslist span {
+	font-size: 18px;
+}
+
+#results ul {
+	padding-inline-start: 40px;
+	margin: 0;
+}
+
+#results li {
+	margin-bottom: 6px;
+}
+
+#final>div {
+	height: 8vh;
+}
+
+#final>div:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+#final>div>div {
+	float: left;
+	height: 100%;
+}
+
+#final>div>div:first-child {
+	width: 100px;
+	font-size: 6vh;
+	text-align: center;
+}
+
+#final>div>div>span {
+	position: relative;
+	top: 0.5vh;
+}
+
+#final>div>div>img {
+	height: 8vh;
+	margin-left: 1px;
+}
+
+#final>div:nth-child(n+2) {
+	border-image: linear-gradient(90deg, #e5dccd, #332a1a, #e5dccd) 1;  /*85%, 15%, 85%*/
+	border-top: 1px solid;
+}
+</style>
+</head>
+
+<body>
+	<div id="prel"></div>
+	<div id="container">
+		<div id="ratings">
+			<div>
+				<h2 id="cardname">Menagerie (Events)</h2>
+				<img id="cardimage" src="https://cdn.discordapp.com/attachments/518641504315637770/1071963079241379951/men600events.jpg"></img>
+			</div>
+			<div>
+				<div id="ratingradio"></div>
+				<div>
+					<button id="next">Start</button>
+				</div>
+			</div>
+		</div>
+		<div id="results" style="display:none;">
+			<h3>Rated so Far</h3>
+			<div id="resultslist">
+			</div>
+		</div>
+		<div id="final" style="display:none;"></div>
+	</div>
+<script>
+function renderPage() {
+	let imgprel = document.getElementById("prel");
+	for (c in cards) {
+		let prei = document.createElement("img");
+		prei.src = cards[c];
+		imgprel.appendChild(prei);
+	}
+	setTimeout(() => imgprel.innerHTML = "", 10000);
+}
+
+var cards = {'Delay': 'http://wiki.dominionstrategy.com/images/thumb/1/16/Delay.jpg/800px-Delay.jpg', 'Desperation': 'http://wiki.dominionstrategy.com/images/thumb/4/45/Desperation.jpg/800px-Desperation.jpg', 'Gamble': 'http://wiki.dominionstrategy.com/images/thumb/e/ec/Gamble.jpg/800px-Gamble.jpg', 'Pursue': 'http://wiki.dominionstrategy.com/images/thumb/9/9f/Pursue.jpg/800px-Pursue.jpg', 'Ride': 'http://wiki.dominionstrategy.com/images/thumb/b/bb/Ride.jpg/800px-Ride.jpg', 'Toil': 'http://wiki.dominionstrategy.com/images/thumb/e/e4/Toil.jpg/800px-Toil.jpg', 'Enhance': 'http://wiki.dominionstrategy.com/images/thumb/7/7b/Enhance.jpg/800px-Enhance.jpg', 'March': 'http://wiki.dominionstrategy.com/images/thumb/c/cf/March.jpg/800px-March.jpg', 'Transport': 'http://wiki.dominionstrategy.com/images/thumb/7/76/Transport.jpg/800px-Transport.jpg', 'Banish': 'http://wiki.dominionstrategy.com/images/thumb/9/91/Banish.jpg/800px-Banish.jpg', 'Bargain': 'http://wiki.dominionstrategy.com/images/thumb/f/fb/Bargain.jpg/800px-Bargain.jpg', 'Invest': 'http://wiki.dominionstrategy.com/images/thumb/e/e3/Invest.jpg/800px-Invest.jpg', 'Seize the Day': 'http://wiki.dominionstrategy.com/images/thumb/c/cb/Seize_the_Day.jpg/800px-Seize_the_Day.jpg', 'Commerce': 'http://wiki.dominionstrategy.com/images/thumb/4/4d/Commerce.jpg/800px-Commerce.jpg', 'Demand': 'http://wiki.dominionstrategy.com/images/thumb/b/b7/Demand.jpg/800px-Demand.jpg', 'Stampede': 'http://wiki.dominionstrategy.com/images/thumb/d/d9/Stampede.jpg/800px-Stampede.jpg', 'Reap': 'http://wiki.dominionstrategy.com/images/thumb/9/9f/Reap.jpg/800px-Reap.jpg', 'Enclave': 'http://wiki.dominionstrategy.com/images/thumb/c/c3/Enclave.jpg/800px-Enclave.jpg', 'Alliance': 'http://wiki.dominionstrategy.com/images/thumb/7/79/Alliance.jpg/800px-Alliance.jpg', 'Populate': 'http://wiki.dominionstrategy.com/images/thumb/6/6a/Populate.jpg/800px-Populate.jpg'};
+
+renderPage();
+
+var togo = Object.keys(cards)
+var activeCard = null;
+var completed = {};
+document.getElementById("next").onclick = function(ev) {
+	if (activeCard) {
+		let ratinginput = document.getElementById("ratingradio").getElementsByTagName("input");
+		for (choice of ratinginput) {
+			if (choice.checked) {
+				if (choice.value in completed) {
+					completed[choice.value].push(activeCard);
+				} else {
+					completed[choice.value] = [activeCard];
+				}
+				choice.checked = false;
+				break;
+			}
+		}
+		let resultsList = document.getElementById("resultslist");
+		resultsList.innerHTML = "";
+		let rused = Object.keys(completed).sort((a,b) => Number(b) - Number(a));
+		for (r of rused) {
+			let rdiv = document.createElement('div');
+			let labdiv = document.createElement('div');
+			let rlab = document.createElement('span');
+			rlab.appendChild(document.createTextNode(r));
+			labdiv.appendChild(rlab);
+			rdiv.appendChild(labdiv);
+			let rli = document.createElement("ul");
+			completed[r].sort();
+			for (c of completed[r]) {
+				let lel = document.createElement("li");
+				lel.appendChild(document.createTextNode(c));
+				rli.appendChild(lel);
+			}
+			rdiv.appendChild(rli);
+			resultsList.appendChild(rdiv);
+		}
+	} else {
+		let radiocontrol = document.getElementById("ratingradio");
+		for (let i=0; i<=10; i++) {
+			let lab = document.createElement("label");
+			let radd = document.createElement("div");
+			let rad = document.createElement("input");
+			rad.name = "rating";
+			rad.value = i;
+			rad.type = "radio";
+			radd.appendChild(rad);
+			lab.appendChild(radd);
+			let labspd = document.createElement("div");
+			let labsp = document.createElement("span");
+			labsp.appendChild(document.createTextNode(i));
+			labspd.appendChild(labsp);
+			lab.appendChild(labspd);
+			radiocontrol.appendChild(lab);
+		}
+		ev.target.innerText = "Next";
+		document.getElementById("ratings").style.width = "800px";
+		document.getElementById("results").style.display = "block";
+	}
+	if (togo.length) {
+		activeCard = togo.splice(Math.floor(togo.length*Math.random()),1)[0];
+		document.getElementById("cardname").innerHTML = activeCard;
+		document.getElementById("cardimage").src = cards[activeCard];
+		if (!togo.length) {
+			ev.target.innerText = "Finish";
+		}
+	} else {
+		let findiv = document.getElementById("final");
+		for (let i = 10; i>=0; i--) {
+			let rankdiv = document.createElement('div');
+			let numdiv = document.createElement('div');
+			let numspan = document.createElement('span');
+			numspan.appendChild(document.createTextNode(i));
+			numdiv.appendChild(numspan);
+			rankdiv.appendChild(numdiv);
+			if (i in completed) {
+				let imgdiv = document.createElement('div');
+				completed[i].sort();
+				for (c of completed[i]) {
+					let cimg = document.createElement('img');
+					cimg.src = cards[c];
+					imgdiv.appendChild(cimg);
+				}
+				rankdiv.appendChild(imgdiv);
+			}
+			findiv.appendChild(rankdiv);
+		}
+		document.getElementById("ratings").style.display = "none";
+		document.getElementById("results").style.display = "none";
+		findiv.style.display = "block";
+	}
+};
+</script>
+</body>

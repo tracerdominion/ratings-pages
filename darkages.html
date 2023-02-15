@@ -1,0 +1,306 @@
+<!doctype html>
+
+<head>
+<style>
+body {
+	font-family: 'Arial';
+	color: #392714; /*15%*/
+	background-image: url("https://cdn.discordapp.com/attachments/518641504315637770/1071955307019907082/darkages.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+#container {
+	margin: auto;
+	margin-top: 6vh;
+	width: 1200px;
+	height: 89vh;
+	background-color: #ebd9c6; /*85%*/
+}
+
+#ratings {
+	text-align: center;
+	font-size: 20px;
+	width: 1200px;
+	float: left;
+}
+
+#results {
+	width: 399px;
+	height: 89vh;
+	font-size: 14px;
+	font-weight: bold;
+	float: left;
+	border-image: linear-gradient(#ebd9c6, #392714, #ebd9c6) 1;  /*85%, 15%, 85%*/
+	border-left: 1px solid;
+}
+
+#cardimage {
+	height: 600px;
+	margin-bottom: 20px;
+}
+
+label {
+	margin: 8px;
+	font-weight: bold;
+	display: inline-block;
+}
+
+#ratingradio:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+input {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+
+	border-radius: 50%;
+	width: 20px;
+	height: 20px;
+	border: 2px solid #d1a77b; /*65%*/
+	background-color: #f8f2ec; /*95%*/
+}
+
+input:hover {
+	border-color: #5d4022; /*25%*/
+	background-color: #d1a77b; /*65%*/
+}
+
+input:checked {
+	border: 7px solid #5d4022; /*25%*/
+}
+
+button {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	
+	margin-top: 20px;
+	
+	font-size: 20px;
+	color: #392714; /*15%*/
+	font-weight: bold;
+	border: 2px solid #d1a77b; /*65%*/
+	background-color: #f8f2ec; /*95%*/
+}
+
+button:hover {
+	border-color: #5d4022; /*25%*/
+	background-color: #d1a77b; /*65%*/
+}
+
+#results>h3 {
+	text-align: center;
+	text-decoration: underline;
+	margin-bottom: 0;
+}
+
+#resultslist>div {
+	padding: 12px 0 0 40px;
+}
+
+#resultslist>div:nth-child(n+2) {
+	border-image: linear-gradient(90deg, #ebd9c6, #392714, #ebd9c6) 1;  /*85%, 15%, 85%*/
+	border-top: 1px solid;
+}
+
+#resultslist>div>* {
+	float: left;
+}
+
+#resultslist>div>div {
+	width: 30px;
+	text-align: right;
+}
+
+#resultslist>div:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+#resultslist span {
+	font-size: 18px;
+}
+
+#results ul {
+	padding-inline-start: 40px;
+	margin: 0;
+}
+
+#results li {
+	margin-bottom: 4px;
+}
+
+#final>div {
+	height: 8vh;
+}
+
+#final>div:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+#final>div>div {
+	float: left;
+	height: 100%;
+}
+
+#final>div>div:first-child {
+	width: 100px;
+	font-size: 6vh;
+	text-align: center;
+}
+
+#final>div>div>span {
+	position: relative;
+	top: 0.5vh;
+}
+
+#final>div>div>img {
+	height: 8vh;
+	margin-left: 1px;
+}
+
+#final>div:nth-child(n+2) {
+	border-image: linear-gradient(90deg, #ebd9c6, #392714, #ebd9c6) 1;  /*85%, 15%, 85%*/
+	border-top: 1px solid;
+}
+</style>
+</head>
+
+<body>
+	<div id="prel"></div>
+	<div id="container">
+		<div id="ratings">
+			<div>
+				<h2 id="cardname">Dark Ages</h2>
+				<img id="cardimage" src="http://wiki.dominionstrategy.com/images/thumb/d/dd/Dark_Ages.jpg/599px-Dark_Ages.jpg"></img>
+			</div>
+			<div>
+				<div id="ratingradio"></div>
+				<div>
+					<button id="next">Start</button>
+				</div>
+			</div>
+		</div>
+		<div id="results" style="display:none;">
+			<h3>Rated so Far</h3>
+			<div id="resultslist">
+			</div>
+		</div>
+		<div id="final" style="display:none;"></div>
+	</div>
+<script>
+function renderPage() {
+	let imgprel = document.getElementById("prel");
+	for (c in cards) {
+		let prei = document.createElement("img");
+		prei.src = cards[c];
+		imgprel.appendChild(prei);
+	}
+	setTimeout(() => imgprel.innerHTML = "", 10000);
+}
+
+var cards = {'Poor House': 'http://wiki.dominionstrategy.com/images/thumb/d/d6/Poor_House.jpg/372px-Poor_House.jpg', 'Beggar': 'http://wiki.dominionstrategy.com/images/thumb/2/2f/Beggar.jpg/372px-Beggar.jpg', 'Squire': 'http://wiki.dominionstrategy.com/images/thumb/7/79/Squire.jpg/373px-Squire.jpg', 'Vagrant': 'http://wiki.dominionstrategy.com/images/thumb/3/3f/Vagrant.jpg/373px-Vagrant.jpg', 'Forager': 'http://wiki.dominionstrategy.com/images/thumb/e/e6/Forager.jpg/372px-Forager.jpg', 'Market Square': 'http://wiki.dominionstrategy.com/images/thumb/f/f1/Market_Square.jpg/371px-Market_Square.jpg', 'Sage': 'http://wiki.dominionstrategy.com/images/thumb/7/70/Sage.jpg/373px-Sage.jpg', 'Storeroom': 'http://wiki.dominionstrategy.com/images/thumb/b/b4/Storeroom.jpg/372px-Storeroom.jpg', 'Urchin': 'http://wiki.dominionstrategy.com/images/thumb/7/74/Urchin.jpg/372px-Urchin.jpg', 'Armory': 'http://wiki.dominionstrategy.com/images/thumb/a/a7/Armory.jpg/373px-Armory.jpg', 'Feodum': 'http://wiki.dominionstrategy.com/images/thumb/1/1f/Feodum.jpg/375px-Feodum.jpg', 'Fortress': 'http://wiki.dominionstrategy.com/images/thumb/8/8a/Fortress.jpg/372px-Fortress.jpg', 'Ironmonger': 'http://wiki.dominionstrategy.com/images/thumb/9/93/Ironmonger.jpg/373px-Ironmonger.jpg', 'Marauder': 'http://wiki.dominionstrategy.com/images/thumb/5/5e/Marauder.jpg/372px-Marauder.jpg', 'Rats': 'http://wiki.dominionstrategy.com/images/thumb/7/70/Rats.jpg/373px-Rats.jpg', 'Scavenger': 'http://wiki.dominionstrategy.com/images/thumb/d/d9/Scavenger.jpg/372px-Scavenger.jpg', 'Wandering Minstrel': 'http://wiki.dominionstrategy.com/images/thumb/f/f9/Wandering_Minstrel.jpg/373px-Wandering_Minstrel.jpg', 'Bandit Camp': 'http://wiki.dominionstrategy.com/images/thumb/4/43/Bandit_Camp.jpg/374px-Bandit_Camp.jpg', 'Catacombs': 'http://wiki.dominionstrategy.com/images/thumb/c/cd/Catacombs.jpg/373px-Catacombs.jpg', 'Count': 'http://wiki.dominionstrategy.com/images/thumb/a/a1/Count.jpg/372px-Count.jpg', 'Cultist': 'http://wiki.dominionstrategy.com/images/thumb/1/18/Cultist.jpg/373px-Cultist.jpg', 'Graverobber': 'http://wiki.dominionstrategy.com/images/thumb/1/13/Graverobber.jpg/372px-Graverobber.jpg', 'Junk Dealer': 'http://wiki.dominionstrategy.com/images/thumb/c/c2/Junk_Dealer.jpg/374px-Junk_Dealer.jpg', 'Mystic': 'http://wiki.dominionstrategy.com/images/thumb/3/37/Mystic.jpg/374px-Mystic.jpg', 'Rebuild': 'http://wiki.dominionstrategy.com/images/thumb/f/f8/Rebuild.jpg/373px-Rebuild.jpg', 'Rogue': 'http://wiki.dominionstrategy.com/images/thumb/f/f6/Rogue.jpg/373px-Rogue.jpg', 'Altar': 'http://wiki.dominionstrategy.com/images/thumb/b/b3/Altar.jpg/373px-Altar.jpg', 'Hunting Grounds': 'http://wiki.dominionstrategy.com/images/thumb/6/6a/Hunting_Grounds.jpg/372px-Hunting_Grounds.jpg', 'Hermit': 'http://wiki.dominionstrategy.com/images/8/8e/Hermit.jpg', 'Death Cart': 'http://wiki.dominionstrategy.com/images/5/50/Death_Cart.jpg', 'Procession': 'http://wiki.dominionstrategy.com/images/7/7a/Procession.jpg', 'Band of Misfits': 'http://wiki.dominionstrategy.com/images/5/51/Band_of_Misfits.jpg', 'Counterfeit': 'http://wiki.dominionstrategy.com/images/thumb/2/28/Counterfeit.jpg/375px-Counterfeit.jpg', 'Knights': 'http://wiki.dominionstrategy.com/images/thumb/9/9a/Knights.jpg/373px-Knights.jpg'};
+
+renderPage();
+
+var togo = Object.keys(cards)
+var activeCard = null;
+var completed = {};
+document.getElementById("next").onclick = function(ev) {
+	if (activeCard) {
+		let ratinginput = document.getElementById("ratingradio").getElementsByTagName("input");
+		for (choice of ratinginput) {
+			if (choice.checked) {
+				if (choice.value in completed) {
+					completed[choice.value].push(activeCard);
+				} else {
+					completed[choice.value] = [activeCard];
+				}
+				choice.checked = false;
+				break;
+			}
+		}
+		let resultsList = document.getElementById("resultslist");
+		resultsList.innerHTML = "";
+		let rused = Object.keys(completed).sort((a,b) => Number(b) - Number(a));
+		for (r of rused) {
+			let rdiv = document.createElement('div');
+			let labdiv = document.createElement('div');
+			let rlab = document.createElement('span');
+			rlab.appendChild(document.createTextNode(r));
+			labdiv.appendChild(rlab);
+			rdiv.appendChild(labdiv);
+			let rli = document.createElement("ul");
+			completed[r].sort();
+			for (c of completed[r]) {
+				let lel = document.createElement("li");
+				lel.appendChild(document.createTextNode(c));
+				rli.appendChild(lel);
+			}
+			rdiv.appendChild(rli);
+			resultsList.appendChild(rdiv);
+		}
+	} else {
+		let radiocontrol = document.getElementById("ratingradio");
+		for (let i=0; i<=10; i++) {
+			let lab = document.createElement("label");
+			let radd = document.createElement("div");
+			let rad = document.createElement("input");
+			rad.name = "rating";
+			rad.value = i;
+			rad.type = "radio";
+			radd.appendChild(rad);
+			lab.appendChild(radd);
+			let labspd = document.createElement("div");
+			let labsp = document.createElement("span");
+			labsp.appendChild(document.createTextNode(i));
+			labspd.appendChild(labsp);
+			lab.appendChild(labspd);
+			radiocontrol.appendChild(lab);
+		}
+		ev.target.innerText = "Next";
+		document.getElementById("ratings").style.width = "800px";
+		document.getElementById("results").style.display = "block";
+	}
+	if (togo.length) {
+		activeCard = togo.splice(Math.floor(togo.length*Math.random()),1)[0];
+		document.getElementById("cardname").innerHTML = activeCard;
+		document.getElementById("cardimage").src = cards[activeCard];
+		if (!togo.length) {
+			ev.target.innerText = "Finish";
+		}
+	} else {
+		let findiv = document.getElementById("final");
+		for (let i = 10; i>=0; i--) {
+			let rankdiv = document.createElement('div');
+			let numdiv = document.createElement('div');
+			let numspan = document.createElement('span');
+			numspan.appendChild(document.createTextNode(i));
+			numdiv.appendChild(numspan);
+			rankdiv.appendChild(numdiv);
+			if (i in completed) {
+				let imgdiv = document.createElement('div');
+				completed[i].sort();
+				for (c of completed[i]) {
+					let cimg = document.createElement('img');
+					cimg.src = cards[c];
+					imgdiv.appendChild(cimg);
+				}
+				rankdiv.appendChild(imgdiv);
+			}
+			findiv.appendChild(rankdiv);
+		}
+		document.getElementById("ratings").style.display = "none";
+		document.getElementById("results").style.display = "none";
+		findiv.style.display = "block";
+	}
+};
+</script>
+</body>

@@ -1,0 +1,306 @@
+<!doctype html>
+
+<head>
+<style>
+body {
+	font-family: 'Arial';
+	color: #004d49; /*15%*/
+	background-image: url("https://cdn.discordapp.com/attachments/518641504315637770/1071947056341594172/renaissance.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+#container {
+	margin: auto;
+	margin-top: 6vh;
+	width: 1200px;
+	height: 89vh;
+	background-color: #b3fffb; /*85%*/
+}
+
+#ratings {
+	text-align: center;
+	font-size: 20px;
+	width: 1200px;
+	float: left;
+}
+
+#results {
+	width: 399px;
+	height: 89vh;
+	font-size: 16px;
+	font-weight: bold;
+	float: left;
+	border-image: linear-gradient(#b3fffb, #004d49, #b3fffb) 1;  /*85%, 15%, 85%*/
+	border-left: 1px solid;
+}
+
+#cardimage {
+	height: 600px;
+	margin-bottom: 20px;
+}
+
+label {
+	margin: 8px;
+	font-weight: bold;
+	display: inline-block;
+}
+
+#ratingradio:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+input {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+
+	border-radius: 50%;
+	width: 20px;
+	height: 20px;
+	border: 2px solid #4dfff6; /*65%*/
+	background-color: #e5fffe; /*95%*/
+}
+
+input:hover {
+	border-color: #00807b; /*25%*/
+	background-color: #4dfff6; /*65%*/
+}
+
+input:checked {
+	border: 7px solid #00807b; /*25%*/
+}
+
+button {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	
+	margin-top: 20px;
+	
+	font-size: 20px;
+	color: #004d49; /*15%*/
+	font-weight: bold;
+	border: 2px solid #4dfff6; /*65%*/
+	background-color: #e5fffe; /*95%*/
+}
+
+button:hover {
+	border-color: #00807b; /*25%*/
+	background-color: #4dfff6; /*65%*/
+}
+
+#results>h3 {
+	text-align: center;
+	text-decoration: underline;
+	margin-bottom: 0;
+}
+
+#resultslist>div {
+	padding: 12px 0 0 40px;
+}
+
+#resultslist>div:nth-child(n+2) {
+	border-image: linear-gradient(90deg, #b3fffb, #004d49, #b3fffb) 1;  /*85%, 15%, 85%*/
+	border-top: 1px solid;
+}
+
+#resultslist>div>* {
+	float: left;
+}
+
+#resultslist>div>div {
+	width: 30px;
+	text-align: right;
+}
+
+#resultslist>div:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+#resultslist span {
+	font-size: 18px;
+}
+
+#results ul {
+	padding-inline-start: 40px;
+	margin: 0;
+}
+
+#results li {
+	margin-bottom: 6px;
+}
+
+#final>div {
+	height: 8vh;
+}
+
+#final>div:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+#final>div>div {
+	float: left;
+	height: 100%;
+}
+
+#final>div>div:first-child {
+	width: 100px;
+	font-size: 6vh;
+	text-align: center;
+}
+
+#final>div>div>span {
+	position: relative;
+	top: 0.5vh;
+}
+
+#final>div>div>img {
+	height: 8vh;
+	margin-left: 1px;
+}
+
+#final>div:nth-child(n+2) {
+	border-image: linear-gradient(90deg, #b3fffb, #004d49, #b3fffb) 1;  /*85%, 15%, 85%*/
+	border-top: 1px solid;
+}
+</style>
+</head>
+
+<body>
+	<div id="prel"></div>
+	<div id="container">
+		<div id="ratings">
+			<div>
+				<h2 id="cardname">Renaissance (Cards)</h2>
+				<img id="cardimage" src="https://cdn.discordapp.com/attachments/518641504315637770/1071960496359608320/ren600cards.jpg"></img>
+			</div>
+			<div>
+				<div id="ratingradio"></div>
+				<div>
+					<button id="next">Start</button>
+				</div>
+			</div>
+		</div>
+		<div id="results" style="display:none;">
+			<h3>Rated so Far</h3>
+			<div id="resultslist">
+			</div>
+		</div>
+		<div id="final" style="display:none;"></div>
+	</div>
+<script>
+function renderPage() {
+	let imgprel = document.getElementById("prel");
+	for (c in cards) {
+		let prei = document.createElement("img");
+		prei.src = cards[c];
+		imgprel.appendChild(prei);
+	}
+	setTimeout(() => imgprel.innerHTML = "", 10000);
+}
+
+var cards = {'Border Guard': 'http://wiki.dominionstrategy.com/images/thumb/8/88/Border_Guard.jpg/375px-Border_Guard.jpg', 'Ducat': 'http://wiki.dominionstrategy.com/images/thumb/d/dc/Ducat.jpg/373px-Ducat.jpg', 'Lackeys': 'http://wiki.dominionstrategy.com/images/thumb/e/e8/Lackeys.jpg/373px-Lackeys.jpg', 'Acting Troupe': 'http://wiki.dominionstrategy.com/images/thumb/9/90/Acting_Troupe.jpg/373px-Acting_Troupe.jpg', 'Cargo Ship': 'http://wiki.dominionstrategy.com/images/thumb/b/ba/Cargo_Ship.jpg/372px-Cargo_Ship.jpg', 'Experiment': 'http://wiki.dominionstrategy.com/images/thumb/d/d3/Experiment.jpg/374px-Experiment.jpg', 'Improve': 'http://wiki.dominionstrategy.com/images/thumb/5/5a/Improve.jpg/376px-Improve.jpg', 'Flag Bearer': 'http://wiki.dominionstrategy.com/images/thumb/e/e4/Flag_Bearer.jpg/375px-Flag_Bearer.jpg', 'Hideout': 'http://wiki.dominionstrategy.com/images/thumb/3/3e/Hideout.jpg/373px-Hideout.jpg', 'Mountain Village': 'http://wiki.dominionstrategy.com/images/thumb/e/ed/Mountain_Village.jpg/373px-Mountain_Village.jpg', 'Patron': 'http://wiki.dominionstrategy.com/images/thumb/7/7e/Patron.jpg/372px-Patron.jpg', 'Priest': 'http://wiki.dominionstrategy.com/images/thumb/b/b6/Priest.jpg/372px-Priest.jpg', 'Research': 'http://wiki.dominionstrategy.com/images/thumb/3/36/Research.jpg/375px-Research.jpg', 'Silk Merchant': 'http://wiki.dominionstrategy.com/images/thumb/f/f2/Silk_Merchant.jpg/375px-Silk_Merchant.jpg', 'Old Witch': 'http://wiki.dominionstrategy.com/images/thumb/0/0e/Old_Witch.jpg/376px-Old_Witch.jpg', 'Recruiter': 'http://wiki.dominionstrategy.com/images/thumb/a/af/Recruiter.jpg/374px-Recruiter.jpg', 'Scholar': 'http://wiki.dominionstrategy.com/images/thumb/2/2e/Scholar.jpg/375px-Scholar.jpg', 'Sculptor': 'http://wiki.dominionstrategy.com/images/thumb/e/ee/Sculptor.jpg/375px-Sculptor.jpg', 'Seer': 'http://wiki.dominionstrategy.com/images/thumb/4/4b/Seer.jpg/375px-Seer.jpg', 'Spices': 'http://wiki.dominionstrategy.com/images/thumb/7/7c/Spices.jpg/373px-Spices.jpg', 'Swashbuckler': 'http://wiki.dominionstrategy.com/images/thumb/4/46/Swashbuckler.jpg/376px-Swashbuckler.jpg', 'Treasurer': 'http://wiki.dominionstrategy.com/images/thumb/8/87/Treasurer.jpg/375px-Treasurer.jpg', 'Villain': 'http://wiki.dominionstrategy.com/images/thumb/7/74/Villain.jpg/373px-Villain.jpg', 'Inventor': 'http://wiki.dominionstrategy.com/images/thumb/5/5e/InventorOld.jpg/373px-InventorOld.jpg', 'Scepter': 'http://wiki.dominionstrategy.com/images/thumb/7/77/ScepterOld.jpg/372px-ScepterOld.jpg'};
+
+renderPage();
+
+var togo = Object.keys(cards)
+var activeCard = null;
+var completed = {};
+document.getElementById("next").onclick = function(ev) {
+	if (activeCard) {
+		let ratinginput = document.getElementById("ratingradio").getElementsByTagName("input");
+		for (choice of ratinginput) {
+			if (choice.checked) {
+				if (choice.value in completed) {
+					completed[choice.value].push(activeCard);
+				} else {
+					completed[choice.value] = [activeCard];
+				}
+				choice.checked = false;
+				break;
+			}
+		}
+		let resultsList = document.getElementById("resultslist");
+		resultsList.innerHTML = "";
+		let rused = Object.keys(completed).sort((a,b) => Number(b) - Number(a));
+		for (r of rused) {
+			let rdiv = document.createElement('div');
+			let labdiv = document.createElement('div');
+			let rlab = document.createElement('span');
+			rlab.appendChild(document.createTextNode(r));
+			labdiv.appendChild(rlab);
+			rdiv.appendChild(labdiv);
+			let rli = document.createElement("ul");
+			completed[r].sort();
+			for (c of completed[r]) {
+				let lel = document.createElement("li");
+				lel.appendChild(document.createTextNode(c));
+				rli.appendChild(lel);
+			}
+			rdiv.appendChild(rli);
+			resultsList.appendChild(rdiv);
+		}
+	} else {
+		let radiocontrol = document.getElementById("ratingradio");
+		for (let i=0; i<=10; i++) {
+			let lab = document.createElement("label");
+			let radd = document.createElement("div");
+			let rad = document.createElement("input");
+			rad.name = "rating";
+			rad.value = i;
+			rad.type = "radio";
+			radd.appendChild(rad);
+			lab.appendChild(radd);
+			let labspd = document.createElement("div");
+			let labsp = document.createElement("span");
+			labsp.appendChild(document.createTextNode(i));
+			labspd.appendChild(labsp);
+			lab.appendChild(labspd);
+			radiocontrol.appendChild(lab);
+		}
+		ev.target.innerText = "Next";
+		document.getElementById("ratings").style.width = "800px";
+		document.getElementById("results").style.display = "block";
+	}
+	if (togo.length) {
+		activeCard = togo.splice(Math.floor(togo.length*Math.random()),1)[0];
+		document.getElementById("cardname").innerHTML = activeCard;
+		document.getElementById("cardimage").src = cards[activeCard];
+		if (!togo.length) {
+			ev.target.innerText = "Finish";
+		}
+	} else {
+		let findiv = document.getElementById("final");
+		for (let i = 10; i>=0; i--) {
+			let rankdiv = document.createElement('div');
+			let numdiv = document.createElement('div');
+			let numspan = document.createElement('span');
+			numspan.appendChild(document.createTextNode(i));
+			numdiv.appendChild(numspan);
+			rankdiv.appendChild(numdiv);
+			if (i in completed) {
+				let imgdiv = document.createElement('div');
+				completed[i].sort();
+				for (c of completed[i]) {
+					let cimg = document.createElement('img');
+					cimg.src = cards[c];
+					imgdiv.appendChild(cimg);
+				}
+				rankdiv.appendChild(imgdiv);
+			}
+			findiv.appendChild(rankdiv);
+		}
+		document.getElementById("ratings").style.display = "none";
+		document.getElementById("results").style.display = "none";
+		findiv.style.display = "block";
+	}
+};
+</script>
+</body>

@@ -1,0 +1,306 @@
+<!doctype html>
+
+<head>
+<style>
+body {
+	font-family: 'Arial';
+	color: #3e300f; /*15%*/
+	background-image: url("http://wiki.dominionstrategy.com/images/1/1b/EmpiresArt.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+#container {
+	margin: auto;
+	margin-top: 6vh;
+	width: 1200px;
+	height: 89vh;
+	background-color: #f0e2c1; /*85%*/
+}
+
+#ratings {
+	text-align: center;
+	font-size: 20px;
+	width: 1200px;
+	float: left;
+}
+
+#results {
+	width: 399px;
+	height: 89vh;
+	font-size: 16px;
+	font-weight: bold;
+	float: left;
+	border-image: linear-gradient(#f0e2c1, #3e300f, #f0e2c1) 1;  /*85%, 15%, 85%*/
+	border-left: 1px solid;
+}
+
+#cardimage {
+	height: 600px;
+	margin-bottom: 20px;
+}
+
+label {
+	margin: 8px;
+	font-weight: bold;
+	display: inline-block;
+}
+
+#ratingradio:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+input {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+
+	border-radius: 50%;
+	width: 20px;
+	height: 20px;
+	border: 2px solid #dcbc6f; /*65%*/
+	background-color: #faf5ea; /*95%*/
+}
+
+input:hover {
+	border-color: #674e18; /*25%*/
+	background-color: #dcbc6f; /*65%*/
+}
+
+input:checked {
+	border: 7px solid #674e18; /*25%*/
+}
+
+button {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	
+	margin-top: 20px;
+	
+	font-size: 20px;
+	color: #3e300f; /*15%*/
+	font-weight: bold;
+	border: 2px solid #dcbc6f; /*65%*/
+	background-color: #faf5ea; /*95%*/
+}
+
+button:hover {
+	border-color: #674e18; /*25%*/
+	background-color: #dcbc6f; /*65%*/
+}
+
+#results>h3 {
+	text-align: center;
+	text-decoration: underline;
+	margin-bottom: 0;
+}
+
+#resultslist>div {
+	padding: 12px 0 0 40px;
+}
+
+#resultslist>div:nth-child(n+2) {
+	border-image: linear-gradient(90deg, #f0e2c1, #3e300f, #f0e2c1) 1;  /*85%, 15%, 85%*/
+	border-top: 1px solid;
+}
+
+#resultslist>div>* {
+	float: left;
+}
+
+#resultslist>div>div {
+	width: 30px;
+	text-align: right;
+}
+
+#resultslist>div:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+#resultslist span {
+	font-size: 18px;
+}
+
+#results ul {
+	padding-inline-start: 40px;
+	margin: 0;
+}
+
+#results li {
+	margin-bottom: 6px;
+}
+
+#final>div {
+	height: 8vh;
+}
+
+#final>div:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+#final>div>div {
+	float: left;
+	height: 100%;
+}
+
+#final>div>div:first-child {
+	width: 100px;
+	font-size: 6vh;
+	text-align: center;
+}
+
+#final>div>div>span {
+	position: relative;
+	top: 0.5vh;
+}
+
+#final>div>div>img {
+	height: 8vh;
+	margin-left: 1px;
+}
+
+#final>div:nth-child(n+2) {
+	border-image: linear-gradient(90deg, #f0e2c1, #3e300f, #f0e2c1) 1;  /*85%, 15%, 85%*/
+	border-top: 1px solid;
+}
+</style>
+</head>
+
+<body>
+	<div id="prel"></div>
+	<div id="container">
+		<div id="ratings">
+			<div>
+				<h2 id="cardname">Empires (Cards)</h2>
+				<img id="cardimage" src="https://cdn.discordapp.com/attachments/518641504315637770/1071955988023885975/emp600cards.jpg"></img>
+			</div>
+			<div>
+				<div id="ratingradio"></div>
+				<div>
+					<button id="next">Start</button>
+				</div>
+			</div>
+		</div>
+		<div id="results" style="display:none;">
+			<h3>Rated so Far</h3>
+			<div id="resultslist">
+			</div>
+		</div>
+		<div id="final" style="display:none;"></div>
+	</div>
+<script>
+function renderPage() {
+	let imgprel = document.getElementById("prel");
+	for (c in cards) {
+		let prei = document.createElement("img");
+		prei.src = cards[c];
+		imgprel.appendChild(prei);
+	}
+	setTimeout(() => imgprel.innerHTML = "", 10000);
+}
+
+var cards = {'Engineer': 'http://wiki.dominionstrategy.com/images/thumb/a/ab/Engineer.jpg/376px-Engineer.jpg', 'City Quarter': 'http://wiki.dominionstrategy.com/images/thumb/4/4e/City_Quarter.jpg/376px-City_Quarter.jpg', 'Royal Blacksmith': 'http://wiki.dominionstrategy.com/images/thumb/c/cb/Royal_Blacksmith.jpg/376px-Royal_Blacksmith.jpg', 'Encampment/Plunder': 'https://cdn.discordapp.com/attachments/518641504315637770/1068018555355930675/encplund.jpg', 'Patrician/Emporium': 'https://cdn.discordapp.com/attachments/518641504315637770/1068018555964108872/patemp.jpg', 'Settlers/Bustling Village': 'https://cdn.discordapp.com/attachments/518641504315637770/1068018556245131264/setbus.jpg', 'Catapult/Rocks': 'https://cdn.discordapp.com/attachments/518641504315637770/1068018554835841054/catroc.jpg', 'Chariot Race': 'http://wiki.dominionstrategy.com/images/thumb/7/7c/Chariot_Race.jpg/375px-Chariot_Race.jpg', 'Enchantress': 'http://wiki.dominionstrategy.com/images/thumb/b/bb/Enchantress.jpg/374px-Enchantress.jpg', "Farmers' Market": 'http://wiki.dominionstrategy.com/images/thumb/3/37/Farmers%27_Market.jpg/376px-Farmers%27_Market.jpg', 'Gladiator/Fortune': 'https://cdn.discordapp.com/attachments/518641504315637770/1068018555645345842/glafor.jpg', 'Sacrifice': 'http://wiki.dominionstrategy.com/images/thumb/5/51/Sacrifice.jpg/374px-Sacrifice.jpg', 'Temple': 'http://wiki.dominionstrategy.com/images/thumb/9/9f/Temple.jpg/373px-Temple.jpg', 'Villa': 'http://wiki.dominionstrategy.com/images/thumb/f/f7/Villa.jpg/376px-Villa.jpg', 'Archive': 'http://wiki.dominionstrategy.com/images/thumb/2/26/Archive.jpg/373px-Archive.jpg', 'Capital': 'http://wiki.dominionstrategy.com/images/thumb/e/eb/Capital.jpg/375px-Capital.jpg', 'Crown': 'http://wiki.dominionstrategy.com/images/thumb/9/91/Crown.jpg/377px-Crown.jpg', 'Legionary': 'http://wiki.dominionstrategy.com/images/thumb/6/64/Legionary.jpg/374px-Legionary.jpg', 'Wild Hunt': 'http://wiki.dominionstrategy.com/images/thumb/4/48/Wild_Hunt.jpg/374px-Wild_Hunt.jpg', 'Overlord': 'http://wiki.dominionstrategy.com/images/thumb/a/ae/OverlordDigital.jpg/374px-OverlordDigital.jpg', 'Charm': 'http://wiki.dominionstrategy.com/images/c/c9/CharmDigital.jpg', 'Forum': 'http://wiki.dominionstrategy.com/images/thumb/8/87/ForumDigital.jpg/375px-ForumDigital.jpg', 'Groundskeeper': 'http://wiki.dominionstrategy.com/images/thumb/2/2f/GroundskeeperDigital.jpg/375px-GroundskeeperDigital.jpg', 'Castles': 'http://wiki.dominionstrategy.com/images/thumb/d/df/Castles.jpg/374px-Castles.jpg'};
+
+renderPage();
+
+var togo = Object.keys(cards)
+var activeCard = null;
+var completed = {};
+document.getElementById("next").onclick = function(ev) {
+	if (activeCard) {
+		let ratinginput = document.getElementById("ratingradio").getElementsByTagName("input");
+		for (choice of ratinginput) {
+			if (choice.checked) {
+				if (choice.value in completed) {
+					completed[choice.value].push(activeCard);
+				} else {
+					completed[choice.value] = [activeCard];
+				}
+				choice.checked = false;
+				break;
+			}
+		}
+		let resultsList = document.getElementById("resultslist");
+		resultsList.innerHTML = "";
+		let rused = Object.keys(completed).sort((a,b) => Number(b) - Number(a));
+		for (r of rused) {
+			let rdiv = document.createElement('div');
+			let labdiv = document.createElement('div');
+			let rlab = document.createElement('span');
+			rlab.appendChild(document.createTextNode(r));
+			labdiv.appendChild(rlab);
+			rdiv.appendChild(labdiv);
+			let rli = document.createElement("ul");
+			completed[r].sort();
+			for (c of completed[r]) {
+				let lel = document.createElement("li");
+				lel.appendChild(document.createTextNode(c));
+				rli.appendChild(lel);
+			}
+			rdiv.appendChild(rli);
+			resultsList.appendChild(rdiv);
+		}
+	} else {
+		let radiocontrol = document.getElementById("ratingradio");
+		for (let i=0; i<=10; i++) {
+			let lab = document.createElement("label");
+			let radd = document.createElement("div");
+			let rad = document.createElement("input");
+			rad.name = "rating";
+			rad.value = i;
+			rad.type = "radio";
+			radd.appendChild(rad);
+			lab.appendChild(radd);
+			let labspd = document.createElement("div");
+			let labsp = document.createElement("span");
+			labsp.appendChild(document.createTextNode(i));
+			labspd.appendChild(labsp);
+			lab.appendChild(labspd);
+			radiocontrol.appendChild(lab);
+		}
+		ev.target.innerText = "Next";
+		document.getElementById("ratings").style.width = "800px";
+		document.getElementById("results").style.display = "block";
+	}
+	if (togo.length) {
+		activeCard = togo.splice(Math.floor(togo.length*Math.random()),1)[0];
+		document.getElementById("cardname").innerHTML = activeCard;
+		document.getElementById("cardimage").src = cards[activeCard];
+		if (!togo.length) {
+			ev.target.innerText = "Finish";
+		}
+	} else {
+		let findiv = document.getElementById("final");
+		for (let i = 10; i>=0; i--) {
+			let rankdiv = document.createElement('div');
+			let numdiv = document.createElement('div');
+			let numspan = document.createElement('span');
+			numspan.appendChild(document.createTextNode(i));
+			numdiv.appendChild(numspan);
+			rankdiv.appendChild(numdiv);
+			if (i in completed) {
+				let imgdiv = document.createElement('div');
+				completed[i].sort();
+				for (c of completed[i]) {
+					let cimg = document.createElement('img');
+					cimg.src = cards[c];
+					imgdiv.appendChild(cimg);
+				}
+				rankdiv.appendChild(imgdiv);
+			}
+			findiv.appendChild(rankdiv);
+		}
+		document.getElementById("ratings").style.display = "none";
+		document.getElementById("results").style.display = "none";
+		findiv.style.display = "block";
+	}
+};
+</script>
+</body>

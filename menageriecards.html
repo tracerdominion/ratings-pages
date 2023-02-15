@@ -1,0 +1,306 @@
+<!doctype html>
+
+<head>
+<style>
+body {
+	font-family: 'Arial';
+	color: #332a1a; /*15%*/
+	background-image: url("https://cdn.discordapp.com/attachments/518641504315637770/1071963079451091024/menagerie.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+#container {
+	margin: auto;
+	margin-top: 6vh;
+	width: 1200px;
+	height: 89vh;
+	background-color: #e5dccd; /*85%*/
+}
+
+#ratings {
+	text-align: center;
+	font-size: 20px;
+	width: 1200px;
+	float: left;
+}
+
+#results {
+	width: 399px;
+	height: 89vh;
+	font-size: 14px;
+	font-weight: bold;
+	float: left;
+	border-image: linear-gradient(#e5dccd, #332a1a, #e5dccd) 1;  /*85%, 15%, 85%*/
+	border-left: 1px solid;
+}
+
+#cardimage {
+	height: 600px;
+	margin-bottom: 20px;
+}
+
+label {
+	margin: 8px;
+	font-weight: bold;
+	display: inline-block;
+}
+
+#ratingradio:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+input {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+
+	border-radius: 50%;
+	width: 20px;
+	height: 20px;
+	border: 2px solid #c2ad89; /*65%*/
+	background-color: #f6f3ee; /*95%*/
+}
+
+input:hover {
+	border-color: #54452c; /*25%*/
+	background-color: #c2ad89; /*65%*/
+}
+
+input:checked {
+	border: 7px solid #54452c; /*25%*/
+}
+
+button {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	
+	margin-top: 20px;
+	
+	font-size: 20px;
+	color: #332a1a; /*15%*/
+	font-weight: bold;
+	border: 2px solid #c2ad89; /*65%*/
+	background-color: #f6f3ee; /*95%*/
+}
+
+button:hover {
+	border-color: #54452c; /*25%*/
+	background-color: #c2ad89; /*65%*/
+}
+
+#results>h3 {
+	text-align: center;
+	text-decoration: underline;
+	margin-bottom: 0;
+}
+
+#resultslist>div {
+	padding: 12px 0 0 40px;
+}
+
+#resultslist>div:nth-child(n+2) {
+	border-image: linear-gradient(90deg, #e5dccd, #332a1a, #e5dccd) 1;  /*85%, 15%, 85%*/
+	border-top: 1px solid;
+}
+
+#resultslist>div>* {
+	float: left;
+}
+
+#resultslist>div>div {
+	width: 30px;
+	text-align: right;
+}
+
+#resultslist>div:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+#resultslist span {
+	font-size: 18px;
+}
+
+#results ul {
+	padding-inline-start: 40px;
+	margin: 0;
+}
+
+#results li {
+	margin-bottom: 4px;
+}
+
+#final>div {
+	height: 8vh;
+}
+
+#final>div:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+#final>div>div {
+	float: left;
+	height: 100%;
+}
+
+#final>div>div:first-child {
+	width: 100px;
+	font-size: 6vh;
+	text-align: center;
+}
+
+#final>div>div>span {
+	position: relative;
+	top: 0.5vh;
+}
+
+#final>div>div>img {
+	height: 8vh;
+	margin-left: 1px;
+}
+
+#final>div:nth-child(n+2) {
+	border-image: linear-gradient(90deg, #e5dccd, #332a1a, #e5dccd) 1;  /*85%, 15%, 85%*/
+	border-top: 1px solid;
+}
+</style>
+</head>
+
+<body>
+	<div id="prel"></div>
+	<div id="container">
+		<div id="ratings">
+			<div>
+				<h2 id="cardname">Menagerie (Cards)</h2>
+				<img id="cardimage" src="https://cdn.discordapp.com/attachments/518641504315637770/1071963079035863100/men600cards.jpg"></img>
+			</div>
+			<div>
+				<div id="ratingradio"></div>
+				<div>
+					<button id="next">Start</button>
+				</div>
+			</div>
+		</div>
+		<div id="results" style="display:none;">
+			<h3>Rated so Far</h3>
+			<div id="resultslist">
+			</div>
+		</div>
+		<div id="final" style="display:none;"></div>
+	</div>
+<script>
+function renderPage() {
+	let imgprel = document.getElementById("prel");
+	for (c in cards) {
+		let prei = document.createElement("img");
+		prei.src = cards[c];
+		imgprel.appendChild(prei);
+	}
+	setTimeout(() => imgprel.innerHTML = "", 10000);
+}
+
+var cards = {'Black Cat': 'http://wiki.dominionstrategy.com/images/thumb/7/77/Black_Cat.jpg/372px-Black_Cat.jpg', 'Sleigh': 'http://wiki.dominionstrategy.com/images/thumb/9/92/Sleigh.jpg/371px-Sleigh.jpg', 'Supplies': 'http://wiki.dominionstrategy.com/images/thumb/9/94/Supplies.jpg/375px-Supplies.jpg', 'Camel Train': 'http://wiki.dominionstrategy.com/images/thumb/1/1a/Camel_Train.jpg/375px-Camel_Train.jpg', 'Goatherd': 'http://wiki.dominionstrategy.com/images/thumb/f/ff/Goatherd.jpg/374px-Goatherd.jpg', 'Scrap': 'http://wiki.dominionstrategy.com/images/thumb/b/b8/Scrap.jpg/375px-Scrap.jpg', 'Sheepdog': 'http://wiki.dominionstrategy.com/images/thumb/2/21/Sheepdog.jpg/371px-Sheepdog.jpg', 'Snowy Village': 'http://wiki.dominionstrategy.com/images/thumb/7/7e/Snowy_Village.jpg/374px-Snowy_Village.jpg', 'Stockpile': 'http://wiki.dominionstrategy.com/images/thumb/6/62/Stockpile.jpg/374px-Stockpile.jpg', 'Bounty Hunter': 'http://wiki.dominionstrategy.com/images/thumb/2/26/Bounty_Hunter.jpg/374px-Bounty_Hunter.jpg', 'Cardinal': 'http://wiki.dominionstrategy.com/images/thumb/d/da/Cardinal.jpg/373px-Cardinal.jpg', 'Cavalry': 'http://wiki.dominionstrategy.com/images/thumb/b/bb/Cavalry.jpg/373px-Cavalry.jpg', 'Groom': 'http://wiki.dominionstrategy.com/images/thumb/a/a1/Groom.jpg/374px-Groom.jpg', 'Hostelry': 'http://wiki.dominionstrategy.com/images/thumb/7/72/Hostelry.jpg/373px-Hostelry.jpg', 'Village Green': 'http://wiki.dominionstrategy.com/images/thumb/c/cf/Village_Green.jpg/371px-Village_Green.jpg', 'Barge': 'http://wiki.dominionstrategy.com/images/thumb/a/ac/Barge.jpg/373px-Barge.jpg', 'Coven': 'http://wiki.dominionstrategy.com/images/thumb/0/05/Coven.jpg/374px-Coven.jpg', 'Displace': 'http://wiki.dominionstrategy.com/images/thumb/9/9f/Displace.jpg/376px-Displace.jpg', 'Falconer': 'http://wiki.dominionstrategy.com/images/thumb/a/ad/Falconer.jpg/372px-Falconer.jpg', 'Gatekeeper': 'http://wiki.dominionstrategy.com/images/thumb/3/36/Gatekeeper.jpg/371px-Gatekeeper.jpg', 'Hunting Lodge': 'http://wiki.dominionstrategy.com/images/thumb/a/a5/Hunting_Lodge.jpg/375px-Hunting_Lodge.jpg', 'Kiln': 'http://wiki.dominionstrategy.com/images/thumb/a/ad/Kiln.jpg/376px-Kiln.jpg', 'Livery': 'http://wiki.dominionstrategy.com/images/thumb/b/b6/Livery.jpg/373px-Livery.jpg', 'Mastermind': 'http://wiki.dominionstrategy.com/images/thumb/2/2d/Mastermind.jpg/373px-Mastermind.jpg', 'Paddock': 'http://wiki.dominionstrategy.com/images/thumb/6/6b/Paddock.jpg/375px-Paddock.jpg', 'Sanctuary': 'http://wiki.dominionstrategy.com/images/thumb/9/94/Sanctuary.jpg/374px-Sanctuary.jpg', 'Fisherman': 'http://wiki.dominionstrategy.com/images/thumb/a/ac/Fisherman.jpg/376px-Fisherman.jpg', 'Destrier': 'http://wiki.dominionstrategy.com/images/thumb/4/48/Destrier.jpg/376px-Destrier.jpg', 'Wayfarer': 'http://wiki.dominionstrategy.com/images/thumb/2/24/Wayfarer.jpg/377px-Wayfarer.jpg', 'Animal Fair': 'http://wiki.dominionstrategy.com/images/thumb/f/fb/Animal_Fair.jpg/375px-Animal_Fair.jpg'};
+
+renderPage();
+
+var togo = Object.keys(cards)
+var activeCard = null;
+var completed = {};
+document.getElementById("next").onclick = function(ev) {
+	if (activeCard) {
+		let ratinginput = document.getElementById("ratingradio").getElementsByTagName("input");
+		for (choice of ratinginput) {
+			if (choice.checked) {
+				if (choice.value in completed) {
+					completed[choice.value].push(activeCard);
+				} else {
+					completed[choice.value] = [activeCard];
+				}
+				choice.checked = false;
+				break;
+			}
+		}
+		let resultsList = document.getElementById("resultslist");
+		resultsList.innerHTML = "";
+		let rused = Object.keys(completed).sort((a,b) => Number(b) - Number(a));
+		for (r of rused) {
+			let rdiv = document.createElement('div');
+			let labdiv = document.createElement('div');
+			let rlab = document.createElement('span');
+			rlab.appendChild(document.createTextNode(r));
+			labdiv.appendChild(rlab);
+			rdiv.appendChild(labdiv);
+			let rli = document.createElement("ul");
+			completed[r].sort();
+			for (c of completed[r]) {
+				let lel = document.createElement("li");
+				lel.appendChild(document.createTextNode(c));
+				rli.appendChild(lel);
+			}
+			rdiv.appendChild(rli);
+			resultsList.appendChild(rdiv);
+		}
+	} else {
+		let radiocontrol = document.getElementById("ratingradio");
+		for (let i=0; i<=10; i++) {
+			let lab = document.createElement("label");
+			let radd = document.createElement("div");
+			let rad = document.createElement("input");
+			rad.name = "rating";
+			rad.value = i;
+			rad.type = "radio";
+			radd.appendChild(rad);
+			lab.appendChild(radd);
+			let labspd = document.createElement("div");
+			let labsp = document.createElement("span");
+			labsp.appendChild(document.createTextNode(i));
+			labspd.appendChild(labsp);
+			lab.appendChild(labspd);
+			radiocontrol.appendChild(lab);
+		}
+		ev.target.innerText = "Next";
+		document.getElementById("ratings").style.width = "800px";
+		document.getElementById("results").style.display = "block";
+	}
+	if (togo.length) {
+		activeCard = togo.splice(Math.floor(togo.length*Math.random()),1)[0];
+		document.getElementById("cardname").innerHTML = activeCard;
+		document.getElementById("cardimage").src = cards[activeCard];
+		if (!togo.length) {
+			ev.target.innerText = "Finish";
+		}
+	} else {
+		let findiv = document.getElementById("final");
+		for (let i = 10; i>=0; i--) {
+			let rankdiv = document.createElement('div');
+			let numdiv = document.createElement('div');
+			let numspan = document.createElement('span');
+			numspan.appendChild(document.createTextNode(i));
+			numdiv.appendChild(numspan);
+			rankdiv.appendChild(numdiv);
+			if (i in completed) {
+				let imgdiv = document.createElement('div');
+				completed[i].sort();
+				for (c of completed[i]) {
+					let cimg = document.createElement('img');
+					cimg.src = cards[c];
+					imgdiv.appendChild(cimg);
+				}
+				rankdiv.appendChild(imgdiv);
+			}
+			findiv.appendChild(rankdiv);
+		}
+		document.getElementById("ratings").style.display = "none";
+		document.getElementById("results").style.display = "none";
+		findiv.style.display = "block";
+	}
+};
+</script>
+</body>

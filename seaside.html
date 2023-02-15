@@ -1,0 +1,306 @@
+<!doctype html>
+
+<head>
+<style>
+body {
+	font-family: 'Arial';
+	color: #0f2b3d; /*15%*/
+	background-image: url("https://cdn.discordapp.com/attachments/518641504315637770/1071951066893127802/seaside.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+#container {
+	margin: auto;
+	margin-top: 6vh;
+	width: 1200px;
+	height: 89vh;
+	background-color: #c1def0; /*85%*/
+}
+
+#ratings {
+	text-align: center;
+	font-size: 20px;
+	width: 1200px;
+	float: left;
+}
+
+#results {
+	width: 399px;
+	height: 89vh;
+	font-size: 16px;
+	font-weight: bold;
+	float: left;
+	border-image: linear-gradient(#c1def0, #0f2b3d, #c1def0) 1;  /*85%, 15%, 85%*/
+	border-left: 1px solid;
+}
+
+#cardimage {
+	height: 600px;
+	margin-bottom: 20px;
+}
+
+label {
+	margin: 8px;
+	font-weight: bold;
+	display: inline-block;
+}
+
+#ratingradio:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+input {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+
+	border-radius: 50%;
+	width: 20px;
+	height: 20px;
+	border: 2px solid #6eb3dd; /*65%*/
+	background-color: #eaf4fa; /*95%*/
+}
+
+input:hover {
+	border-color: #184967; /*25%*/
+	background-color: #6eb3dd; /*65%*/
+}
+
+input:checked {
+	border: 7px solid #184967; /*25%*/
+}
+
+button {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	
+	margin-top: 20px;
+	
+	font-size: 20px;
+	color: #0f2b3d; /*15%*/
+	font-weight: bold;
+	border: 2px solid #6eb3dd; /*65%*/
+	background-color: #eaf4fa; /*95%*/
+}
+
+button:hover {
+	border-color: #184967; /*25%*/
+	background-color: #6eb3dd; /*65%*/
+}
+
+#results>h3 {
+	text-align: center;
+	text-decoration: underline;
+	margin-bottom: 0;
+}
+
+#resultslist>div {
+	padding: 12px 0 0 40px;
+}
+
+#resultslist>div:nth-child(n+2) {
+	border-image: linear-gradient(90deg, #c1def0, #0f2b3d, #c1def0) 1;  /*85%, 15%, 85%*/
+	border-top: 1px solid;
+}
+
+#resultslist>div>* {
+	float: left;
+}
+
+#resultslist>div>div {
+	width: 30px;
+	text-align: right;
+}
+
+#resultslist>div:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+#resultslist span {
+	font-size: 18px;
+}
+
+#results ul {
+	padding-inline-start: 40px;
+	margin: 0;
+}
+
+#results li {
+	margin-bottom: 6px;
+}
+
+#final>div {
+	height: 8vh;
+}
+
+#final>div:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+#final>div>div {
+	float: left;
+	height: 100%;
+}
+
+#final>div>div:first-child {
+	width: 100px;
+	font-size: 6vh;
+	text-align: center;
+}
+
+#final>div>div>span {
+	position: relative;
+	top: 0.5vh;
+}
+
+#final>div>div>img {
+	height: 8vh;
+	margin-left: 1px;
+}
+
+#final>div:nth-child(n+2) {
+	border-image: linear-gradient(90deg, #c1def0, #0f2b3d, #c1def0) 1;  /*85%, 15%, 85%*/
+	border-top: 1px solid;
+}
+</style>
+</head>
+
+<body>
+	<div id="prel"></div>
+	<div id="container">
+		<div id="ratings">
+			<div>
+				<h2 id="cardname">Seaside</h2>
+				<img id="cardimage" src="http://wiki.dominionstrategy.com/images/thumb/8/84/Seaside2.jpg/600px-Seaside2.jpg"></img>
+			</div>
+			<div>
+				<div id="ratingradio"></div>
+				<div>
+					<button id="next">Start</button>
+				</div>
+			</div>
+		</div>
+		<div id="results" style="display:none;">
+			<h3>Rated so Far</h3>
+			<div id="resultslist">
+			</div>
+		</div>
+		<div id="final" style="display:none;"></div>
+	</div>
+<script>
+function renderPage() {
+	let imgprel = document.getElementById("prel");
+	for (c in cards) {
+		let prei = document.createElement("img");
+		prei.src = cards[c];
+		imgprel.appendChild(prei);
+	}
+	setTimeout(() => imgprel.innerHTML = "", 10000);
+}
+
+var cards = {'Haven': 'http://wiki.dominionstrategy.com/images/thumb/c/c9/Haven.jpg/372px-Haven.jpg', 'Lighthouse': 'http://wiki.dominionstrategy.com/images/thumb/4/4f/Lighthouse.jpg/373px-Lighthouse.jpg', 'Native Village': 'http://wiki.dominionstrategy.com/images/thumb/6/67/Native_Village.jpg/373px-Native_Village.jpg', 'Astrolabe': 'http://wiki.dominionstrategy.com/images/thumb/1/1b/Astrolabe.jpg/376px-Astrolabe.jpg', 'Fishing Village': 'http://wiki.dominionstrategy.com/images/thumb/3/3b/Fishing_Village.jpg/373px-Fishing_Village.jpg', 'Lookout': 'http://wiki.dominionstrategy.com/images/thumb/c/c6/Lookout.jpg/373px-Lookout.jpg', 'Monkey': 'http://wiki.dominionstrategy.com/images/thumb/3/30/Monkey.jpg/373px-Monkey.jpg', 'Sea Chart': 'http://wiki.dominionstrategy.com/images/thumb/a/a7/Sea_Chart.jpg/374px-Sea_Chart.jpg', 'Smugglers': 'http://wiki.dominionstrategy.com/images/thumb/0/05/Smugglers.jpg/374px-Smugglers.jpg', 'Warehouse': 'http://wiki.dominionstrategy.com/images/thumb/6/6d/Warehouse.jpg/374px-Warehouse.jpg', 'Blockade': 'http://wiki.dominionstrategy.com/images/thumb/d/df/Blockade.jpg/373px-Blockade.jpg', 'Caravan': 'http://wiki.dominionstrategy.com/images/thumb/c/c8/Caravan.jpg/374px-Caravan.jpg', 'Cutpurse': 'http://wiki.dominionstrategy.com/images/thumb/7/7d/Cutpurse.jpg/374px-Cutpurse.jpg', 'Island': 'http://wiki.dominionstrategy.com/images/thumb/f/fd/Island.jpg/374px-Island.jpg', 'Sailor': 'http://wiki.dominionstrategy.com/images/thumb/b/bd/Sailor.jpg/372px-Sailor.jpg', 'Salvager': 'http://wiki.dominionstrategy.com/images/thumb/8/89/Salvager.jpg/373px-Salvager.jpg', 'Tide Pools': 'http://wiki.dominionstrategy.com/images/thumb/d/de/Tide_Pools.jpg/374px-Tide_Pools.jpg', 'Treasure Map': 'http://wiki.dominionstrategy.com/images/thumb/6/61/Treasure_Map.jpg/373px-Treasure_Map.jpg', 'Bazaar': 'http://wiki.dominionstrategy.com/images/thumb/f/f7/Bazaar.jpg/375px-Bazaar.jpg', 'Corsair': 'http://wiki.dominionstrategy.com/images/thumb/e/ea/Corsair.jpg/373px-Corsair.jpg', 'Merchant Ship': 'http://wiki.dominionstrategy.com/images/thumb/9/92/Merchant_Ship.jpg/373px-Merchant_Ship.jpg', 'Outpost': 'http://wiki.dominionstrategy.com/images/thumb/b/b4/Outpost.jpg/372px-Outpost.jpg', 'Pirate': 'http://wiki.dominionstrategy.com/images/thumb/e/ec/Pirate.jpg/373px-Pirate.jpg', 'Sea Witch': 'http://wiki.dominionstrategy.com/images/thumb/1/14/Sea_Witch.jpg/373px-Sea_Witch.jpg', 'Tactician': 'http://wiki.dominionstrategy.com/images/thumb/e/ed/Tactician.jpg/372px-Tactician.jpg', 'Treasury': 'http://wiki.dominionstrategy.com/images/thumb/f/fd/Treasury.jpg/373px-Treasury.jpg', 'Wharf': 'http://wiki.dominionstrategy.com/images/thumb/c/cc/Wharf.jpg/373px-Wharf.jpg'};
+
+renderPage();
+
+var togo = Object.keys(cards)
+var activeCard = null;
+var completed = {};
+document.getElementById("next").onclick = function(ev) {
+	if (activeCard) {
+		let ratinginput = document.getElementById("ratingradio").getElementsByTagName("input");
+		for (choice of ratinginput) {
+			if (choice.checked) {
+				if (choice.value in completed) {
+					completed[choice.value].push(activeCard);
+				} else {
+					completed[choice.value] = [activeCard];
+				}
+				choice.checked = false;
+				break;
+			}
+		}
+		let resultsList = document.getElementById("resultslist");
+		resultsList.innerHTML = "";
+		let rused = Object.keys(completed).sort((a,b) => Number(b) - Number(a));
+		for (r of rused) {
+			let rdiv = document.createElement('div');
+			let labdiv = document.createElement('div');
+			let rlab = document.createElement('span');
+			rlab.appendChild(document.createTextNode(r));
+			labdiv.appendChild(rlab);
+			rdiv.appendChild(labdiv);
+			let rli = document.createElement("ul");
+			completed[r].sort();
+			for (c of completed[r]) {
+				let lel = document.createElement("li");
+				lel.appendChild(document.createTextNode(c));
+				rli.appendChild(lel);
+			}
+			rdiv.appendChild(rli);
+			resultsList.appendChild(rdiv);
+		}
+	} else {
+		let radiocontrol = document.getElementById("ratingradio");
+		for (let i=0; i<=10; i++) {
+			let lab = document.createElement("label");
+			let radd = document.createElement("div");
+			let rad = document.createElement("input");
+			rad.name = "rating";
+			rad.value = i;
+			rad.type = "radio";
+			radd.appendChild(rad);
+			lab.appendChild(radd);
+			let labspd = document.createElement("div");
+			let labsp = document.createElement("span");
+			labsp.appendChild(document.createTextNode(i));
+			labspd.appendChild(labsp);
+			lab.appendChild(labspd);
+			radiocontrol.appendChild(lab);
+		}
+		ev.target.innerText = "Next";
+		document.getElementById("ratings").style.width = "800px";
+		document.getElementById("results").style.display = "block";
+	}
+	if (togo.length) {
+		activeCard = togo.splice(Math.floor(togo.length*Math.random()),1)[0];
+		document.getElementById("cardname").innerHTML = activeCard;
+		document.getElementById("cardimage").src = cards[activeCard];
+		if (!togo.length) {
+			ev.target.innerText = "Finish";
+		}
+	} else {
+		let findiv = document.getElementById("final");
+		for (let i = 10; i>=0; i--) {
+			let rankdiv = document.createElement('div');
+			let numdiv = document.createElement('div');
+			let numspan = document.createElement('span');
+			numspan.appendChild(document.createTextNode(i));
+			numdiv.appendChild(numspan);
+			rankdiv.appendChild(numdiv);
+			if (i in completed) {
+				let imgdiv = document.createElement('div');
+				completed[i].sort();
+				for (c of completed[i]) {
+					let cimg = document.createElement('img');
+					cimg.src = cards[c];
+					imgdiv.appendChild(cimg);
+				}
+				rankdiv.appendChild(imgdiv);
+			}
+			findiv.appendChild(rankdiv);
+		}
+		document.getElementById("ratings").style.display = "none";
+		document.getElementById("results").style.display = "none";
+		findiv.style.display = "block";
+	}
+};
+</script>
+</body>
